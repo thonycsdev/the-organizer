@@ -9,10 +9,16 @@ import (
 )
 
 func main() {
-	userInformedLocation := "/home/thonycsdev/Downloads"
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+    userInformedLocation := filepath.Dir(ex)
+    //userInformedLocation := "/home/thonycsdev/Downloads"
 	fmt.Println("Go Organizer")
 	files, _ := os.ReadDir(userInformedLocation)
 	files = filterFilesFromDirectories(files)
+	log.Print(files)
 	if len(files) == 0 {
 		fmt.Println("Cannot find files to move. There is any file in this directory?")
 		return
@@ -32,7 +38,7 @@ func main() {
 
 	CreateFolderByFolderNames(&foldersNames, &userInformedLocation)
 	fileNamesMap := PassToMap(foldersNames)
-    moveFilesToDestination(files, fileNamesMap, userInformedLocation )
+	moveFilesToDestination(files, fileNamesMap, userInformedLocation)
 }
 
 func filterFilesFromDirectories(files []os.DirEntry) []os.DirEntry {
@@ -72,7 +78,7 @@ func moveFile(sourcePath, destPath string) error {
 	if err != nil {
 		return err
 	}
-	logString := fmt.Sprint("De: ", sourcePath, " Para ", sourcePath)
+	logString := fmt.Sprint("De: ", sourcePath, " Para ", destPath)
 	log.Print(logString)
 	return nil
 }
