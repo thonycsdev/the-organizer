@@ -8,8 +8,7 @@ import (
 )
 
 func main() {
-	//userInformedLocation := directories.GetApplicationCurrentDirectory()
-	userInformedLocation := "/home/thonycsdev/Downloads"
+	userInformedLocation := directories.GetApplicationCurrentDirectory()
 	fmt.Println("Go Organizer")
 	fmt.Printf("-> %s <-", userInformedLocation)
 	question := fmt.Sprint(` is this the right location?: 
